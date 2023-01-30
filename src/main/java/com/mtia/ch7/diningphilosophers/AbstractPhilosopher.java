@@ -41,7 +41,7 @@ public abstract class AbstractPhilosopher extends Thread implements Philosopher 
     }
 
     /*
-     * @see io.github.viscent.mtia.ch7.diningphilosophers.Philosopher#eat()
+     * @see com.mtia.ch7.diningphilosophers.Philosopher#eat()
      */
     @Override
     public abstract void eat();
@@ -52,7 +52,7 @@ public abstract class AbstractPhilosopher extends Thread implements Philosopher 
     }
 
     /*
-     * @see io.github.viscent.mtia.ch7.diningphilosophers.Philosopher#think()
+     * @see com.mtia.ch7.diningphilosophers.Philosopher#think()
      */
     @Override
     public void think() {

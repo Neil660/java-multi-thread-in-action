@@ -27,8 +27,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * 运行程序前请先解压缩数据文件： src/data/ch4case02/InputFiles.zip。 <br>
  * 参考命令如下。
  * java -Xms96m -Xmx128m -XX:NewSize=64m -XX:SurvivorRatio=32
- * -Dx.stat.task=io.github.viscent.mtia.ch4.case02.MultithreadedStatTask -Dx.input.buffer=8192
- * -Dx.block.size=2000 io.github.viscent.mtia.ch4.case02.CaseRunner4_2
+ * -Dx.stat.task=com.mtia.ch4.case02.MultithreadedStatTask -Dx.input.buffer=8192
+ * -Dx.block.size=2000 com.mtia.ch4.case02.CaseRunner4_2
  *
  * @author Viscent Huang
  */
@@ -71,7 +71,7 @@ public class CaseRunner4_2 {
                                        String expectedExternalDeviceList) throws Exception {
         String taskClazz = System.getProperty("x.stat.task");
 
-        taskClazz = null == taskClazz ? "io.github.viscent.mtia.ch4.case02.MultithreadedStatTask"
+        taskClazz = null == taskClazz ? "com.mtia.ch4.case02.MultithreadedStatTask"
                 : taskClazz;
 
         Class<?> clazz = Class.forName(taskClazz);
@@ -87,7 +87,7 @@ public class CaseRunner4_2 {
     private static InputStream createInputStream() {
         final AtomicBoolean readerClosed = new AtomicBoolean(false);
         InputStream dataIn = CaseRunner4_2.class
-                .getResourceAsStream("/data/ch4case02/in.dat");
+                .getResourceAsStream("../data/ch4case02/in.dat");
         final BufferedReader bfr = new BufferedReader(new InputStreamReader(
                 dataIn)) {
             @Override
@@ -123,7 +123,7 @@ public class CaseRunner4_2 {
                         InputStream in = null;
                         if (null != fileName) {
                             try {
-                                in = CaseRunner4_2.class.getResourceAsStream("/data/ch4case02/"
+                                in = CaseRunner4_2.class.getResourceAsStream("../data/ch4case02/"
                                         + fileName);
                             }
                             catch (Exception e) {

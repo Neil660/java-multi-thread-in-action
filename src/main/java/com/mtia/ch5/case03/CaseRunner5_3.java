@@ -18,7 +18,7 @@ public class CaseRunner5_3 {
 
     public static void main(String[] args) throws Exception {
         System.setProperty("x.stat.task",
-                "io.github.viscent.mtia.ch5.case03.StatTask");
+                "com.mtia.ch5.case03.StatTask");
         CaseRunner4_2.main(args);
     }
 

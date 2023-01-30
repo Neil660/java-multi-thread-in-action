@@ -36,6 +36,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
+/**
+ * 使用PipedOutputStream和PipedInputStream实现的从网络上边下载边解析的RSS（Rich Site Summary）阅读器
+ */
 public class ConcurrentRSSReader {
 
     public static void main(String[] args) throws Exception {

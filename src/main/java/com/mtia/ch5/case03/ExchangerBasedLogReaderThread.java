@@ -26,7 +26,7 @@ public class ExchangerBasedLogReaderThread extends AbstractLogReader {
     public ExchangerBasedLogReaderThread(InputStream in, int inputBufferSize,
                                          int batchSize) {
         super(in, inputBufferSize, batchSize);
-        exchanger = new Exchanger<RecordSet>();
+        exchanger = new Exchanger<>();
         nextToFill = new RecordSet(batchSize);
         consumedBatch = new RecordSet(batchSize);
     }

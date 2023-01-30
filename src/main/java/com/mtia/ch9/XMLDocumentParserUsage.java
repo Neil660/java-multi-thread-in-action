@@ -31,7 +31,7 @@ public class XMLDocumentParserUsage {
     public static void main(String[] args) throws Exception {
         final int argc = args.length;
         URL url = argc > 0 ? new URL(args[0]) : XMLDocumentParserUsage.class.getClassLoader()
-                .getResource("data/ch9/feed");
+                .getResource("../data/ch9/feed");
 
         syncParse(url);
         asyncParse1(url);

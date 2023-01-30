@@ -37,9 +37,11 @@ public class DownloadBuffer implements Closeable {
     }
 
     public void write(ByteBuffer buf) throws IOException {
-        // Capacity在读写模式下都是固定的，就是我们分配的缓冲大小
-        // Position类似于读写指针，表示当前读(写)到什么位置
-        // Limit在写模式下表示最多能写入多少数据
+        // ByteBuffer字节缓冲类相关字段
+        //  capacity在读写模式下都是固定的，就是我们分配的缓冲大小
+        //  position类似于读写指针，表示当前读写到什么位置
+        //  limit：写时limit=capacity，读时limit=position
+        //  mark：为某一读过的位置做标记，便于某些时候回退到该位置
         int length = buf.position();
         final int capacity = byteBuf.capacity();
         // 当前缓冲区已满，或者剩余容量不够容纳新数据

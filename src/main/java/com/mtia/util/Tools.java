@@ -75,6 +75,7 @@ public final class Tools {
             Thread.sleep(sleepTime);
         }
         catch (InterruptedException e) {
+            // 保留线程中断标记
             Thread.currentThread().interrupt();
         }
     }
