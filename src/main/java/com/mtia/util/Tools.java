@@ -31,6 +31,7 @@ import java.util.logging.Logger;
 import sun.misc.Unsafe;
 
 public final class Tools {
+    public static final String root = System.getProperty("user.dir");
     private static final Random rnd = new Random();
     private static final Logger LOGGER = Logger.getAnonymousLogger();
 

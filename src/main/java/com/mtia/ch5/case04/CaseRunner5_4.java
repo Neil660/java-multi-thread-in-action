@@ -14,6 +14,7 @@ package com.mtia.ch5.case04;
 
 import com.mtia.ch5.TerminatableTaskRunner;
 import com.mtia.util.Debug;
+import com.mtia.util.Tools;
 
 public class CaseRunner5_4 {
     static TerminatableTaskRunner taskRunner = new TerminatableTaskRunner();
@@ -22,10 +23,14 @@ public class CaseRunner5_4 {
         taskRunner.init();
     }
 
+    /**
+     * 扫描root+/data/ch5case04/的mp3文件，并将它们的绝对路径添加到localmusic.txt
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
-
-        MusicFinder finder = new MusicFinder(taskRunner, "/home/viscent/",
-                "/home/viscent/tmp/localmusic.lst", 2000);
+        MusicFinder finder = new MusicFinder(taskRunner, Tools.root + "/data/ch5case04/",
+                Tools.root + "/data/ch5case04/localmusic.txt", 2000);
         Debug.info("starting searching...");
         finder.searchMusicFiles();
 

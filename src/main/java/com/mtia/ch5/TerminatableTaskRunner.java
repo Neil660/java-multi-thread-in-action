@@ -75,6 +75,10 @@ public class TerminatableTaskRunner implements TaskRunnerSpec {
                     }
                     task = channel.take();
                     try {
+                        // 1、task已经停止，此时就会抛异常InterruptedException，那么run返回，线程停止
+                        // 2、如果在调用shutdown()那一刻，目标线程正在执行task.run()且task.run()中的代码清空了线程中断标记，
+                        //     那么channel.take()调用无法抛出InterruptedException（因为中断标记被清除了）。但是会通过inUse
+                        //     来实现停止线程
                         task.run();
                     }
                     catch (Throwable e) {
@@ -82,12 +86,13 @@ public class TerminatableTaskRunner implements TaskRunnerSpec {
                     }
                     // 使待处理任务数减少1
                     reservations.decrementAndGet();// 语句④
-                }// for循环结束
+                }
             }
             catch (InterruptedException e) {
+                // 停止worker线程
                 workerThread = null;
             }
             Debug.info("worker thread terminated.");
-        }// run方法结束
-    }// WorkerThread结束
+        }
+    }
 }

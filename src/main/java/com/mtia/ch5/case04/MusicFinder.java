@@ -36,16 +36,16 @@ public class MusicFinder extends SimpleFileVisitor<Path> implements Runnable {
     final long timeout;
     volatile boolean canceled = false;
 
-    public MusicFinder(TerminatableTaskRunner taskRunner, String rootDirToSearch,
-                       String outputFileName, long timeout) throws Exception {
+    public MusicFinder(TerminatableTaskRunner taskRunner, String rootDirToSearch, String outputFileName, long timeout)
+            throws Exception {
         this.taskRunner = taskRunner;
         this.rootDirToSearch = rootDirToSearch;
         this.pwr = new PrintWriter(new FileWriter(outputFileName), true);
         this.timeout = timeout;
     }
 
-    public MusicFinder(TerminatableTaskRunner taskRunner, String rootDirToSearch,
-                       String outputFileName) throws Exception {
+    public MusicFinder(TerminatableTaskRunner taskRunner, String rootDirToSearch, String outputFileName)
+            throws Exception {
         this(taskRunner, rootDirToSearch, outputFileName, 0L);
     }
 
@@ -74,6 +74,7 @@ public class MusicFinder extends SimpleFileVisitor<Path> implements Runnable {
     public void run() {
         Path start = FileSystems.getDefault().getPath(rootDirToSearch);
         try {
+            // 遍历一个文件树
             Files.walkFileTree(start, this);
         }
         catch (IOException e) {
@@ -85,9 +86,15 @@ public class MusicFinder extends SimpleFileVisitor<Path> implements Runnable {
         Debug.info("Search %s.", canceled ? "canceled" : "done");
     }
 
+    /**
+     * 重写，只扫描mp3结尾的文件
+     * @param filePath
+     * @param attrs
+     * @return
+     * @throws IOException
+     */
     @Override
-    public FileVisitResult visitFile(Path filePath, BasicFileAttributes attrs)
-            throws IOException {
+    public FileVisitResult visitFile(Path filePath, BasicFileAttributes attrs) throws IOException {
         File file = filePath.toFile();
         if (file.getName().toLowerCase().endsWith(".mp3")) {
             final String fileName = file.getCanonicalPath();
@@ -98,10 +105,15 @@ public class MusicFinder extends SimpleFileVisitor<Path> implements Runnable {
         return FileVisitResult.CONTINUE;
     }
 
+    /**
+     * 重写，扫描前的判断，线程停止后不再扫描
+     * @param dir
+     * @param attrs
+     * @return
+     * @throws IOException
+     */
     @Override
-    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes
-            attrs)
-            throws IOException {
+    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
         // 检测中断标志
         if (Thread.currentThread().isInterrupted()) {
             Debug.info("interrupt detected");

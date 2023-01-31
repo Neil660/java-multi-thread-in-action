@@ -14,6 +14,9 @@ package com.mtia.ch5;
 
 import com.mtia.util.Debug;
 
+/**
+ * 验证：不能使用线程中断标记作为线程停止标记
+ */
 public class MayNotBeTerminatedDemo {
     public static void main(String[] args) throws InterruptedException {
         TaskRunner tr = new TaskRunner();
@@ -32,6 +35,7 @@ public class MayNotBeTerminatedDemo {
                 Debug.info("after doing task");
             }
         });
+        // 无法停止workerThread
         tr.workerThread.interrupt();
     }
 }
