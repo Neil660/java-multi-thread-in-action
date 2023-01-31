@@ -17,7 +17,8 @@ import java.security.SecureRandom;
 
 public enum ThreadSpecificSecureRandom {
     INSTANCE;
-
+    // 强随机数生成器SecureRandom，线程安全
+    // 设置为一个线程特有对象，避免了多线程下的锁争用开销
     final static ThreadLocal<SecureRandom> SECURE_RANDOM = new ThreadLocal<SecureRandom>() {
         @Override
         protected SecureRandom initialValue() {
@@ -36,7 +37,7 @@ public enum ThreadSpecificSecureRandom {
         }
     };
 
-    // 生成随机数
+    // 生成随机数，多个线程各自使用各自的SecureRandom实例，从而避免了锁的争用
     public int nextInt(int upperBound) {
         SecureRandom secureRnd = SECURE_RANDOM.get();
         return secureRnd.nextInt(upperBound);
