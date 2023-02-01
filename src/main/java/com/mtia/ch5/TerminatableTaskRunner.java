@@ -79,6 +79,7 @@ public class TerminatableTaskRunner implements TaskRunnerSpec {
                         // 2、如果在调用shutdown()那一刻，目标线程正在执行task.run()且task.run()中的代码清空了线程中断标记，
                         //     那么channel.take()调用无法抛出InterruptedException（因为中断标记被清除了）。但是会通过inUse
                         //     来实现停止线程
+                        // 3、task在run方法中需要判断Thread.currentThread().isInterrupted()，否则会一直阻塞
                         task.run();
                     }
                     catch (Throwable e) {

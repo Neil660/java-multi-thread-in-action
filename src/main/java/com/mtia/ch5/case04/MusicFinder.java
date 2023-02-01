@@ -75,6 +75,7 @@ public class MusicFinder extends SimpleFileVisitor<Path> implements Runnable {
         Path start = FileSystems.getDefault().getPath(rootDirToSearch);
         try {
             // 遍历一个文件树
+            // 存在Thread.currentThread().isInterrupted()用来检测中断标志
             Files.walkFileTree(start, this);
         }
         catch (IOException e) {
